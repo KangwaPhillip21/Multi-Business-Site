@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Admin Panel</title>
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<textarea id="newsText" placeholder="Write new ad..."></textarea>
+
+<button onclick="saveNews()">Post</button>
+
+<div id="newsDisplay"></div>
+
+<script>
+
+function saveNews(){
+
+let text = document.getElementById("newsText").value
+
+localStorage.setItem("news",text)
+
+displayNews()
+
+}
+
+function displayNews(){
+
+let text = localStorage.getItem("news")
+
+document.getElementById("newsDisplay").innerText = text
+
+}
+
+displayNews()
+
+</script>
+
+</body>
+</html>
