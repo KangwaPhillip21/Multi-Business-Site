@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Barber Shop</title>
+    <link rel="stylesheet" href="barbershop.css">
+</head>
+<body>
+
+    <header class="hero-header">
+        <h1>Elite Barber Shop</h1>
+        <p>Fresh Cuts • Clean Shaves • Professional Grooming</p>
+
+        <a href="#booking" class="btn">Book Appointment</a>
+    </header>
+
+    <section class="services-section">
+        <h2>Services Offered</h2>
+
+        <div class="service-card">
+            <h3>Hair Cut</h3>
+            <p>Professional haircuts for all styles.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Beard Trim</h3>
+            <p>Clean and precise beard grooming.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Hot Towel Shave</h3>
+            <p>Relaxing traditional shaving experience.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Kids Haircuts</h3>
+            <p>Friendly service for children.</p>
+        </div>
+    </section>
+
+    <section id="booking" class="booking-section">
+        <h2>Book an Appointment</h2>
+
+        <form>
+            <input type="text" placeholder="Full Name" required>
+
+            <input type="tel" placeholder="Phone Number" required>
+
+            <input type="date" required>
+
+        <select>required>
+                <option value="">Select Service</option>
+                <option>Hair Cut</option>
+                <option>Beard Trim</option>
+                <option>Hot Towel Shave</option>
+                <option>Kids Haircut</option>
+            </select>
+
+            <button type="submit" class="btn">
+                Book Now
+            </button>
+        </form>
+    </section>
+
+</body>
+</html>
