@@ -122,6 +122,41 @@ p {
     transform: scale(1.05);
 }
 
+/* NAVIGATION */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+}
+.logo {
+    color: #FFD700;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #FFD700;
+}
 /* FAQ SECTION */
 
 .faq-section {
@@ -149,4 +184,24 @@ p {
 .faq-item p {
     font-size: 1rem;
     margin-bottom: 0;
+}
+.businesses {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.business-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.business-card {
+    background: rgba(0,0,0,0.65);
+    width: 300px;
+    padding: 25px;
+    border-radius: 15px;
 }
