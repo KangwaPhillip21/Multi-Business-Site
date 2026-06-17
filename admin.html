@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <div class="sidebar">
+    <h2>Elite Admin</h2>
+
+    <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+    <a href="#" onclick="showSection('orders')">Orders</a>
+    <a href="#" onclick="showSection('bookings')">Bookings</a>
+</div>
+
+    <div class="main">
+        <h1>Welcome Admin</h1>
+      <div class="main">
+
+    <div id="dashboard" class="section">
+        <h1>Dashboard Overview</h1>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Restaurant Orders</h3>
+                <p>Live tracking</p>
+            </div>
+
+            <div class="card">
+                <h3>Barber Bookings</h3>
+                <p>Live tracking</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="orders" class="section" style="display:none;">
+        <h2>Restaurant Orders</h2>
+        <div id="ordersList"></div>
+    </div>
+
+    <div id="bookings" class="section" style="display:none;">
+        <h2>Barber Bookings</h2>
+        <div id="bookingsList"></div>
+    </div>
+
+</div>
+        <p>Manage your businesses here</p>
+    </div>
+
+<script>
+function loadData() {
+
+    // RESTAURANT ORDERS
+    let orders = JSON.parse(localStorage.getItem("restaurantOrders")) || [];
+    let ordersDiv = document.getElementById("orders");
+
+    ordersDiv.innerHTML = orders.map(o => `
+        <div class="card">
+            <p><b>Name:</b> ${o.name}</p>
+            <p><b>Food:</b> ${o.food}</p>
+            <p><b>Qty:</b> ${o.quantity}</p>
+            <p><b>Time:</b> ${o.time}</p>
+        </div>
+    `).join("");
+
+    // BARBER BOOKINGS
+    let bookings = JSON.parse(localStorage.getItem("barberBookings")) || [];
+    let bookingsDiv = document.getElementById("bookings");
+
+    bookingsDiv.innerHTML = bookings.map(b => `
+        <div class="card">
+            <p><b>Name:</b> ${b.name}</p>
+            <p><b>Service:</b> ${b.service}</p>
+            <p><b>Date:</b> ${b.date}</p>
+            <p><b>Time:</b> ${b.time}</p>
+        </div>
+    `).join("");
+}
+
+loadData();
+</script>
+
+<script>
+function showSection(sectionId) {
+
+    let sections = document.querySelectorAll('.section');
+
+    sections.forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    document.getElementById(sectionId).style.display = "block";
+
+    loadData(); // refresh data when switching tabs
+}
+</script>
+
+<script>
+function loadData() {
+
+    let orders = JSON.parse(localStorage.getItem("restaurantOrders")) || [];
+    let ordersDiv = document.getElementById("ordersList");
+
+    ordersDiv.innerHTML = orders.map(o => `
+        <div class="card">
+            <p><b>Name:</b> ${o.name}</p>
+            <p><b>Food:</b> ${o.food}</p>
+            <p><b>Qty:</b> ${o.quantity}</p>
+            <p><b>Time:</b> ${o.time}</p>
+        </div>
+    `).join("");
+
+    let bookings = JSON.parse(localStorage.getItem("barberBookings")) || [];
+    let bookingsDiv = document.getElementById("bookingsList");
+
+    bookingsDiv.innerHTML = bookings.map(b => `
+        <div class="card">
+            <p><b>Name:</b> ${b.name}</p>
+            <p><b>Service:</b> ${b.service}</p>
+            <p><b>Date:</b> ${b.date}</p>
+            <p><b>Time:</b> ${b.time}</p>
+        </div>
+    `).join("");
+}
+
+loadData();
+</script>
+
+</body>
+</html>
+</body>
+</html>

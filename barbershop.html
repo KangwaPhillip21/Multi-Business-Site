@@ -42,26 +42,53 @@
     <section id="booking" class="booking-section">
         <h2>Book an Appointment</h2>
 
-        <form>
-            <input type="text" placeholder="Full Name" required>
+       <form onsubmit="bookAppointment(event)">
 
-            <input type="tel" placeholder="Phone Number" required>
+    <input type="text" id="name" placeholder="Full Name" required>
 
-            <input type="date" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
 
-        <select>required>
-                <option value="">Select Service</option>
-                <option>Hair Cut</option>
-                <option>Beard Trim</option>
-                <option>Hot Towel Shave</option>
-                <option>Kids Haircut</option>
-            </select>
+    <select id="service" required>
+        <option value="">Select Service</option>
+        <option>Fade Cut</option>
+        <option>Beard Trim</option>
+        <option>Haircut</option>
+    </select>
 
-            <button type="submit" class="btn">
-                Book Now
-            </button>
-        </form>
+    <input type="date" id="date" required>
+
+    <button type="submit" class="btn">Book Now</button>
+
+</form> 
     </section>
 
+<script>
+function bookAppointment(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let service = document.getElementById("service").value;
+    let date = document.getElementById("date").value;
+
+    let booking = {
+        name: name,
+        phone: phone,
+        service: service,
+        date: date,
+        time: new Date().toLocaleString()
+    };
+
+    console.log("Booking created:", booking); // DEBUG check
+
+    let bookings = JSON.parse(localStorage.getItem("barberBookings")) || [];
+
+    bookings.push(booking);
+
+    localStorage.setItem("barberBookings", JSON.stringify(bookings));
+
+    alert("Booking saved successfully!");
+}
+</script>
 </body>
 </html>

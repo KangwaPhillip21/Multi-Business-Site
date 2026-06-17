@@ -205,3 +205,52 @@ p {
     padding: 25px;
     border-radius: 15px;
 }
+/* MENU BUTTON */
+.menu-container {
+    position: absolute;
+    top: 90px; /* pushes it below Elite Business Solutions */
+    left: 20px;
+    z-index: 9999;
+}
+
+/* 3 LINES BUTTON */
+.menu-btn {
+    background: gold;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* DROPDOWN MENU */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+
+    background: rgba(0, 0, 0, 0.95);
+    border-radius: 10px;
+    min-width: 220px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dropdown a {
+    display: block;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown a:last-child {
+    border-bottom: none;
+}
+
+.dropdown a:hover {
+    background: gold;
+    color: black;
+}

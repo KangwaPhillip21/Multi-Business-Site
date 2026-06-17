@@ -11,7 +11,22 @@
 </head>
 
 <body>
+<div class="menu-container">
 
+    <div class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+        <a href="index.html">Home</a>
+        <a href="barbershop.html">Barber Shop</a>
+        <a href="restaurant.html">Restaurant</a>
+        <a href="admin.html">Admin Panel</a>
+        <a href="#">Customer Sign In</a>
+        <a href="#">Customer Sign Up</a>
+    </div>
+
+</div>
 <header class="hero-header">
     <h1>Elite Business Solutions</h1>
     <p>Multi Business Services Platform</p>
@@ -86,6 +101,19 @@
     </div>
 
 </section>
+
+<script>
+function toggleMenu() {
+    let menu = document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+</script>
+
 </body>
 
 
