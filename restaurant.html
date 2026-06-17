@@ -32,58 +32,95 @@
 
 <body>
 
-    <header class="hero">
-        <h1>Elite Restaurant</h1>
-        <p>Fresh Food • Fast Service • Quality Taste</p>
+<div class="menu-card">
+    <img src="images/chicken burger.jpg.jpg" alt="Chicken Burger">
+    <h3>Chicken Burger</h3>
+    <p>Juicy grilled chicken with fries</p>
+    <span>K80</span>
 
-        <a href="#menu" class="btn">View Menu</a>
-    </header>
+     <a href="#order" class="btn">Order Now</a>
+</div>
 
-    <section id="menu" class="menu-section">
-        <h2>Our Menu</h2>
+<div class="menu-card">
+    <img src="images/beef-burger.jpg.jpg" alt="Beef Burger">
+    <h3>Beef Burger</h3>
+    <p>Classic beef burger with cheese</p>
+    <span>K90</span>
+    <a href="#order" class="btn">Order Now</a>
+</div>
 
-        <div class="menu-grid">
+<div class="menu-card">
+    <img src="images/pizza.jpg.jpg" alt="Pizza">
+    <h3>Pizza</h3>
+    <p>Cheesy pizza with toppings</p>
+    <span>K120</span>
+    <a href="#order" class="btn">Order Now</a>
+</div>
 
-            <div class="menu-card">
-                <h3>Chicken Burger</h3>
-                <p>Juicy grilled chicken with fries</p>
-                <span>K80</span>
-            </div>
-
-            <div class="menu-card">
-                <h3>Beef Burger</h3>
-                <p>Classic beef burger with cheese</p>
-                <span>K90</span>
-            </div>
-
-            <div class="menu-card">
-                <h3>Pizza</h3>
-                <p>Cheesy pizza with toppings</p>
-                <span>K120</span>
-            </div>
-
-        </div>
-    </section>
-
-<section class="order-section">
+<section id="order" class="order-section">
     <h2>Place Your Order</h2>
 
-    <form>
-        <input type="text" placeholder="Full Name" required>
-        <input type="tel" placeholder="Phone Number" required>
+    <form onsubmit="sendToWhatsApp(event)">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
 
-        <select required>
+        <select id="food" required>
             <option value="">Select Food</option>
             <option>Chicken Burger</option>
             <option>Beef Burger</option>
             <option>Pizza</option>
         </select>
 
-        <input type="number" placeholder="Quantity" required>
+<section class="reviews-section">
+    <h2>Customer Reviews</h2>
 
-        <button type="submit" class="btn">Order Now</button>
+    <div class="review-card">
+        ⭐⭐⭐⭐⭐
+        <p>"Best burger in town! Fast service and great taste."</p>
+        <h4>- John M.</h4>
+    </div>
+
+    <div class="review-card">
+        ⭐⭐⭐⭐⭐
+        <p>"Clean restaurant and very professional staff."</p>
+        <h4>- Sarah K.</h4>
+    </div>
+
+    <div class="review-card">
+        ⭐⭐⭐⭐⭐
+        <p>"Food was fresh and delivery was quick!"</p>
+        <h4>- Mike T.</h4>
+    </div>
+</section>
+
+        <input type="number" id="quantity" placeholder="Quantity" required>
+
+        <button type="submit" class="btn">Send Order</button>
     </form>
 </section>
+
+<script>
+function sendToWhatsApp(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let food = document.getElementById("food").value;
+    let quantity = document.getElementById("quantity").value;
+
+    let message = `Hello, I want to order:%0A
+Name: ${name}%0A
+Phone: ${phone}%0A
+Food: ${food}%0A
+Quantity: ${quantity}`;
+
+    let whatsappNumber = "260XXXXXXXXX"; // CHANGE THIS to your number
+
+    let url = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
