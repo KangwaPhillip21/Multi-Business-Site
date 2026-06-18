@@ -3,204 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-    <button class="logout-btn" onclick="logout()">Logout</button>
-
-<h1>Admin Dashboard</h1>
-
-    <!DOCTYPE html>
-<html>
-<head>
     <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+<input type="text" id="searchInput" placeholder="Search orders or businesses..." onkeyup="searchData()">
+<div id="results"></div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
 
-<h1>Admin Dashboard</h1>
-
-<div class="stats">
-    <div class="card">
-        <h2 id="bookingCount">0</h2>
-        <p>Barber Bookings</p>
-    </div>
-
-    <div class="card">
-        <h2 id="orderCount">0</h2>
-        <p>Restaurant Orders</p>
-    </div>
-</div>
-
-
+    <!-- Sidebar -->
     <div class="sidebar">
-    <h2>Elite Admin</h2>
+        <h2>Elite Admin</h2>
 
-    <a href="#" onclick="showSection('dashboard')">Dashboard</a>
-    <a href="#" onclick="showSection('orders')">Orders</a>
-    <a href="#" onclick="showSection('bookings')">Bookings</a>
-</div>
+        <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+        <a href="#" onclick="showSection('orders')">Orders</a>
+        <a href="#" onclick="showSection('bookings')">Bookings</a>
+    </div>
 
+    <!-- Main Content -->
     <div class="main">
-        <h1>Welcome Admin</h1>
-      <div class="main">
 
-    <div id="dashboard" class="section">
-        <h1>Dashboard Overview</h1>
+        <!-- Dashboard -->
+        <div id="dashboard" class="section">
 
-        <div class="cards">
-            <div class="card">
-                <h3>Restaurant Orders</h3>
-                <p>Live tracking</p>
+            <h1>Admin Dashboard</h1>
+
+            <div class="stats">
+
+                <div class="card">
+                    <h2 id="bookingCount">0</h2>
+                    <p>Barber Bookings</p>
+                </div>
+
+                <div class="card">
+                    <h2 id="orderCount">0</h2>
+                    <p>Restaurant Orders</p>
+                </div>
+
             </div>
 
-            <div class="card">
-                <h3>Barber Bookings</h3>
-                <p>Live tracking</p>
-            </div>
+            <h2>Recent Barber Bookings</h2>
+            <div id="bookingList"></div>
 
-<h2>Recent Barber Bookings</h2>
-<div id="bookingList"></div>
-
-<h2>Recent Restaurant Orders</h2>
-<div id="orderList"></div>
+            <h2>Recent Restaurant Orders</h2>
+            <div id="orderList"></div>
 
         </div>
+
+        <!-- Orders Section -->
+        <div id="orders" class="section" style="display:none;">
+            <h2>Restaurant Orders</h2>
+            <div id="ordersList"></div>
+        </div>
+
+        <!-- Bookings Section -->
+        <div id="bookings" class="section" style="display:none;">
+            <h2>Barber Bookings</h2>
+            <div id="bookingsList"></div>
+        </div>
+
     </div>
 
-    <div id="orders" class="section" style="display:none;">
-        <h2>Restaurant Orders</h2>
-        <div id="ordersList"></div>
-    </div>
+    <script>
 
-    <div id="bookings" class="section" style="display:none;">
-        <h2>Barber Bookings</h2>
-        <div id="bookingsList"></div>
-    </div>
+        function loadData() {
 
-</div>
-        <p>Manage your businesses here</p>
-    </div>
+            let bookings =
+                JSON.parse(localStorage.getItem("barberBookings")) || [];
 
-<script>
-function loadData() {
+            let orders =
+                JSON.parse(localStorage.getItem("restaurantOrders")) || [];
 
-    // RESTAURANT ORDERS
+            // Counts
+            document.getElementById("bookingCount").textContent =
+                bookings.length;
+
+            document.getElementById("orderCount").textContent =
+                orders.length;
+
+            // Recent Bookings
+            let bookingList =
+                document.getElementById("bookingList");
+
+            bookingList.innerHTML = "";
+
+            bookings.forEach(booking => {
+
+                bookingList.innerHTML += `
+                    <div class="card">
+                        <p><b>Name:</b> ${booking.name}</p>
+                        <p><b>Date:</b> ${booking.date}</p>
+                    </div>
+                `;
+
+            });
+
+            // Recent Orders
+            let orderList =
+                document.getElementById("orderList");
+
+            orderList.innerHTML = "";
+
+            orders.forEach(order => {
+
+                orderList.innerHTML += `
+                    <div class="card">
+                        <p><b>Name:</b> ${order.name}</p>
+                        <p><b>Food:</b> ${order.food}</p>
+                    </div>
+                `;
+
+            });
+
+            // Orders Page
+            let ordersDiv =
+                document.getElementById("ordersList");
+
+            ordersDiv.innerHTML = orders.map(order => `
+                <div class="card">
+                    <p><b>Name:</b> ${order.name}</p>
+                    <p><b>Food:</b> ${order.food}</p>
+                    <p><b>Quantity:</b> ${order.quantity}</p>
+                    <p><b>Time:</b> ${order.time}</p>
+                </div>
+            `).join("");
+
+            // Bookings Page
+            let bookingsDiv =
+                document.getElementById("bookingsList");
+
+            bookingsDiv.innerHTML = bookings.map(booking => `
+                <div class="card">
+                    <p><b>Name:</b> ${booking.name}</p>
+                    <p><b>Service:</b> ${booking.service}</p>
+                    <p><b>Date:</b> ${booking.date}</p>
+                    <p><b>Time:</b> ${booking.time}</p>
+                </div>
+            `).join("");
+
+        }
+
+        function showSection(sectionId) {
+
+            let sections =
+                document.querySelectorAll(".section");
+
+            sections.forEach(section => {
+                section.style.display = "none";
+            });
+
+            document.getElementById(sectionId).style.display =
+                "block";
+
+        }
+
+        function logout() {
+
+            localStorage.removeItem("loggedIn");
+
+            window.location.href = "signin.html";
+
+        }
+
+        // Protect page
+        if (localStorage.getItem("loggedIn") !== "true") {
+
+            alert("Please sign in first!");
+
+            window.location.href = "signin.html";
+
+        }
+
+        loadData();
+
+
+function searchData() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+
+    // Example: get orders from localStorage
     let orders = JSON.parse(localStorage.getItem("restaurantOrders")) || [];
-    let ordersDiv = document.getElementById("orders");
 
-    ordersDiv.innerHTML = orders.map(o => `
-        <div class="card">
-            <p><b>Name:</b> ${o.name}</p>
-            <p><b>Food:</b> ${o.food}</p>
-            <p><b>Qty:</b> ${o.quantity}</p>
-  
-          <p><b>Time:</b> ${o.time}</p>
-        </div>
-    `).join("");
-
-let bookingList = document.getElementById("bookingList");
-
-bookings.forEach(booking => {
-    bookingList.innerHTML += `
-        <p>${booking.name} - ${booking.date}</p>
-    `;
-});
-
-let bookings =
-JSON.parse(localStorage.getItem("barberBookings")) || [];
-
-let orders =
-JSON.parse(localStorage.getItem("restaurantOrders")) || [];
-
-document.getElementById("bookingCount").textContent =
-bookings.length;
-
-document.getElementById("orderCount").textContent =
-orders.length;
-
-loadData();
-</script>
-
-<script>
-function showSection(sectionId) {
-
-    let sections = document.querySelectorAll('.section');
-
-    sections.forEach(sec => {
-        sec.style.display = "none";
+    // Filter results
+    let results = orders.filter(item => {
+        return JSON.stringify(item).toLowerCase().includes(input);
     });
 
-    document.getElementById(sectionId).style.display = "block";
-
-    loadData(); // refresh data when switching tabs
-}
-</script>
-
-<script>
-function loadData() {
-
-    let orders = JSON.parse(localStorage.getItem("restaurantOrders")) || [];
-    let ordersDiv = document.getElementById("ordersList");
-
-    ordersDiv.innerHTML = orders.map(o => `
-        <div class="card">
-            <p><b>Name:</b> ${o.name}</p>
-            <p><b>Food:</b> ${o.food}</p>
-            <p><b>Qty:</b> ${o.quantity}</p>
-            <p><b>Time:</b> ${o.time}</p>
-        </div>
-    `).join("");
-
-    let bookings = JSON.parse(localStorage.getItem("barberBookings")) || [];
-    let bookingsDiv = document.getElementById("bookingsList");
-
-    bookingsDiv.innerHTML = bookings.map(b => `
-        <div class="card">
-            <p><b>Name:</b> ${b.name}</p>
-            <p><b>Service:</b> ${b.service}</p>
-            <p><b>Date:</b> ${b.date}</p>
-            <p><b>Time:</b> ${b.time}</p>
-        </div>
-
-    `).join("");
+    displayResults(results);
 }
 
-loadData();
-</script>
+function displayResults(data) {
+    let container = document.getElementById("results");
 
-<script>
-if (localStorage.getItem("loggedIn") !== "true") {
-    alert("Please sign in first!");
-    window.location.href = "signin.html";
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+        container.innerHTML = "<p>No results found</p>";
+        return;
+    }
+
+    data.forEach(item => {
+        let div = document.createElement("div");
+        div.style.border = "1px solid #ccc";
+        div.style.padding = "10px";
+        div.style.margin = "5px 0";
+
+        div.innerHTML = `
+            <strong>Name:</strong> ${item.name || "N/A"} <br>
+            <strong>Details:</strong> ${JSON.stringify(item)}
+        `;
+
+        container.appendChild(div);
+    });
 }
-</script>
 
-<button onclick="logout()">Logout</button>
 
-<script>
-function logout() {
-    localStorage.removeItem("loggedIn");
-    window.location.href = "signin.html";
-}
-</script>
+    </script>
 
-<script>
-let bookings =
-JSON.parse(localStorage.getItem("appointments")) || [];
-
-let orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-document.getElementById("bookingCount").textContent =
-bookings.length;
-
-document.getElementById("orderCount").textContent =
-orders.length;
-</script>
-
-</body>
-</html>
 </body>
 </html>

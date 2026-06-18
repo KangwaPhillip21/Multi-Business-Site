@@ -11,6 +11,10 @@
 </head>
 
 <body>
+
+
+
+
 <div class="menu-container">
 
     <div class="menu-btn" onclick="toggleMenu()">
@@ -113,7 +117,23 @@ function toggleMenu() {
     } else {
         menu.style.display = "block";
     }
+
+    let businesses =
+JSON.parse(localStorage.getItem("businesses")) || [
+
+    {
+        name: "Elite Barbershop",
+        category: "Barber"
+    },
+
+    {
+        name: "Taste Restaurant",
+        category: "Restaurant"
+    }
+
+];
 }
+
 </script>
 
 </body>
