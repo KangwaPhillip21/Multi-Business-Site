@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Business</title>
+</head>
+<body>
+
+<h1>Create Your Business</h1>
+
+<form onsubmit="saveBusiness(event)">
+
+    <input type="text" id="businessName"
+           placeholder="Business Name" required>
+
+    <br><br>
+
+    <select id="businessType" required>
+        <option value="">Select Business Type</option>
+        <option>Barber Shop</option>
+        <option>Restaurant</option>
+        <option>Salon</option>
+        <option>Car Wash</option>
+    </select>
+
+    <br><br>
+
+    <input type="text" id="location"
+           placeholder="Location" required>
+
+    <br><br>
+
+    <input type="tel" id="phone"
+           placeholder="Business Phone" required>
+
+    <br><br>
+
+    <textarea id="description"
+              placeholder="Business Description"></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Save Business
+    </button>
+
+</form>
+
+<script>
+    function saveBusiness(event) {
+
+    event.preventDefault();
+
+    let business = {
+        businessName:
+            document.getElementById("businessName").value,
+
+        businessType:
+            document.getElementById("businessType").value,
+
+        location:
+            document.getElementById("location").value,
+
+        phone:
+            document.getElementById("phone").value,
+
+        description:
+            document.getElementById("description").value
+    };
+    let businesses =
+        JSON.parse(localStorage.getItem("businesses")) || [];
+
+    businesses.push(business);
+
+    localStorage.setItem(
+        "businesses",
+        JSON.stringify(businesses)
+    );
+
+    alert("Business saved successfully!");
+
+    window.location.href = "admin.html";
+}
+</script>
+
+</body>
+</html>
